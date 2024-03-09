@@ -7,7 +7,7 @@ import numpy as np
 
 if __name__ == "__main__":
     # Load the CSV into a DataFrame called 'data'
-    input_file = f"./data/source/dpe_tertiaire_20240309.csv"
+    input_file = "./data/source/dpe_tertiaire_20240309.csv"
     data = pd.read_csv(input_file)
     # shuffle
     data = data.sample(frac=1, random_state=808).reset_index(drop=True)
@@ -17,7 +17,7 @@ if __name__ == "__main__":
     y = data.iloc[:, -1]  # Target variable
     assert y.name == "etiquette_dpe"
 
-    id = list(X.n_dpe)
+    # id = list(X.n_dpe)
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(

@@ -16,7 +16,6 @@ pd.options.display.max_colwidth = 100
 pd.options.display.precision = 10
 pd.options.display.width = 160
 pd.set_option("display.float_format", "{:.4f}".format)
-import numpy as np
 import re
 import typing as t
 from collections import Counter
@@ -25,8 +24,8 @@ import json
 import datetime
 
 
-def rename_columns(data: pd.DataFrame) -> t.List[str]:
-    columns = [col.lower() for col in data.columns]
+def rename_columns(columns: t.List[str]) -> t.List[str]:
+    columns = [col.lower() for col in columns]
 
     rgxs = [
         (r"[°|/|']", "_"),
@@ -52,14 +51,13 @@ if __name__ == "__main__":
     Simplifier le nom des colonnes
     """
 
-    data.columns = rename_columns()
+    data.columns = rename_columns(data.columns)
 
     """
     rm missing target
     """
     target = "etiquette_dpe"
     data.dropna(subset=target, inplace=True)
-    id = "n_dpe"
 
     """
     categorical columns

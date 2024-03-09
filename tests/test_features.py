@@ -13,5 +13,5 @@ def test_rename_columns():
     original_file = "./data/original/dpe-v2-tertiaire-2.csv"
     data = pd.read_csv(original_file)
 
-    new_columns = rename_columns(data)
+    new_columns = rename_columns(data.columns)
     assert data.shape[1] == len(new_columns)

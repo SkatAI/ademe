@@ -6,14 +6,13 @@ from sklearn.metrics import classification_report, accuracy_score, roc_auc_score
 import numpy as np
 from pathlib import Path
 import mlflow
-from mlflow.models import infer_signature
 
 mlflow.set_tracking_uri(uri="http://127.0.0.1:8088")
 mlflow.set_experiment("dpe_saturday")
-mlflow.sklearn.autolog()
+# mlflow.sklearn.autolog()
 if __name__ == "__main__":
     # Load the CSV into a DataFrame called 'data'
-    input_file = f"./data/source/dpe_tertiaire_20240309.csv"
+    input_file = "./data/source/dpe_tertiaire_20240309.csv"
     data = pd.read_csv(input_file)
     # shuffle
     data = data.sample(frac=1, random_state=808).reset_index(drop=True)
@@ -22,8 +21,6 @@ if __name__ == "__main__":
     X = data.iloc[:, :-1]  # Features
     y = data.iloc[:, -1]  # Target variable
     assert y.name == "etiquette_dpe"
-
-    id = list(X.n_dpe)
 
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
@@ -84,12 +81,12 @@ if __name__ == "__main__":
 
     print(importance_dict)
 
-    # with mlflow.start_run():
-    #     mlflow.log_param("n_estimators", grid_search.best_params_['n_estimators'])
-    #     mlflow.log_param("max_depth", grid_search.best_params_['max_depth'])
-    #     mlflow.log_metric("accuracy", accuracy_score(y_test, yhat))
-    #     mlflow.log_metric("roc_auc", roc_auc_score(y_test, probabilities, multi_class='ovr'))
-    #     mlflow.log_dict(importance_dict, "importance_dict.json" )
+    with mlflow.start_run():
+        mlflow.log_param("n_estimators", grid_search.best_params_['n_estimators'])
+        mlflow.log_param("max_depth", grid_search.best_params_['max_depth'])
+        mlflow.log_metric("accuracy", accuracy_score(y_test, yhat))
+        mlflow.log_metric("roc_auc", roc_auc_score(y_test, probabilities, multi_class='ovr'))
+        mlflow.log_dict(importance_dict, "importance_dict.json" )
 
-    #     mlflow.sklearn.log_model(grid_search.best_estimator_, "best")
-    #     mlflow.log_artifact(Path(input_file))
+        mlflow.sklearn.log_model(grid_search.best_estimator_, "best")
+        mlflow.log_artifact(Path(input_file))

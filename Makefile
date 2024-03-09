@@ -8,7 +8,7 @@ format:
 
 lint:
 # lint
-	pylint --disable=R,C src/**/*.py
+	pylint --disable=R,C,W0105 src/**/*.py
 
 test:
 # test
