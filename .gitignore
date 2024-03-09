@@ -1,6 +1,5 @@
 .vscode
 
-
 secrets.toml
 
 __init__.py
@@ -21,17 +20,10 @@ __pycache__/
 *.pkl
 log/*.log
 
-# notes
-next.md
-todo.md
-doing.md
-
 # data
-*.csv
-*.pdf
+# *.csv
+# *.pdf
 
-*.zip
-*.xml
+# *.zip
+# *.xml
 
-
-sandbox_googlestorage.py
