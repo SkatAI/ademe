@@ -21,7 +21,7 @@ if __name__ == "__main__":
     X = data.iloc[:, :-1]  # Features
     y = data.iloc[:, -1]  # Target variable
     assert y.name == "etiquette_dpe"
-
+    # id = list(X.n_dpe)
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=808
