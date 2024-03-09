@@ -24,17 +24,8 @@ from sklearn.preprocessing import OrdinalEncoder
 import json
 import datetime
 
-if __name__ == "__main__":
-
-    original_file = "./data/original/dpe-v2-tertiaire-2.csv"
-    output_file = f"./data/source/dpe_tertiaire_{datetime.datetime.now().strftime('%Y%m%d')}.csv"
-
-    data = pd.read_csv(original_file)
-    '''
-    Simplifier le nom des colonnes
-    '''
-    columns = data.columns.copy()
-    columns = [col.lower() for col in columns]
+def rename_columns(data: pd.DataFrame) -> t.List[str]:
+    columns = [col.lower() for col in data.columns]
 
     rgxs = [
         (r"[°|/|']", '_'),
@@ -46,7 +37,21 @@ if __name__ == "__main__":
     for rgx in rgxs:
         columns = [re.sub(rgx[0], rgx[1], col) for col in columns]
 
-    data.columns = columns
+    return columns
+
+
+
+if __name__ == "__main__":
+
+    original_file = "./data/original/dpe-v2-tertiaire-2.csv"
+    output_file = f"./data/source/dpe_tertiaire_{datetime.datetime.now().strftime('%Y%m%d')}.csv"
+
+    data = pd.read_csv(original_file)
+    '''
+    Simplifier le nom des colonnes
+    '''
+
+    data.columns = rename_columns()
 
     '''
     rm missing target

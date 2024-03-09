@@ -4,6 +4,9 @@ secrets.toml
 
 __init__.py
 
+.mlruns
+mlruns.db
+
 .DS_store
 **/.DS_store
 __pycache__/
