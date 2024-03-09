@@ -39,7 +39,7 @@ if __name__ == "__main__":
     # Setup GridSearchCV with k-fold cross-validation
     cv = KFold(n_splits=3, random_state=84, shuffle=True)
 
-    grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=cv, scoring='roc_auc_ovr', verbose = 1)
+    grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=cv, scoring='accuracy', verbose = 1)
 
     # Fit the model
     grid_search.fit(X_train, y_train)
