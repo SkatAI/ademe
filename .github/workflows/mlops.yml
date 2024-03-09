@@ -26,3 +26,7 @@ jobs:
       - name: Format code
         run: |
           make format
+
+      - name: Say hello
+        run: |
+          python script/helloworld.py
